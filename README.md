@@ -1,32 +1,31 @@
+# Equipe:
+# Michael TRAN
+# Thomas MEONI
 
-<!-- Equipe:
- Michael TRAN
- Thomas MEONI -->
+# Nom du fichier CSV:
+# trafic-annuel-entrant-par-station-du-reseau-ferre 2018-2020
 
-<!--    Nom du fichier CSV: -->
-<!-- trafic-annuel-entrant-par-station-du-reseau-ferre 2018-2020 -->
+# Description :
+# Taux de fréquentation des station ratp île de France. Comprend les RER, metro, TGV et train # de ligne
 
-<!-- Description : -->
-<!-- Taux de fréquentation des station ratp île de France. Comprend les RER, metro, TGV et train de ligne -->
-
-<!-- Installation : -->
+# Installation :
 $ git clone https://github.com/maykeul27/DashBoard_Python
 
 % Liste des packages additionnels: plotly.graph_objects, plotly.express, pandas, pathlib and dash, voir requirements.txt
 
 $ python -m pip install -r requirements.txt
 
-<!-- Démarrage
- lancer sur votre terminal python le main.py -->
+# Démarrage
+ lancer sur votre terminal python le main.py
 
-<!-- Donner l'instruction à exécuter dans le terminal pour lancer le projet.
- Utilisation: ouvrez l'url affiché -->
+# Donner l'instruction à exécuter dans le terminal pour lancer le projet.
+# Utilisation: ouvrez l'url affiché
 
-<!-- cliquer sur le bouton de defilement et choisir une année. -->
+# cliquer sur le bouton de defilement et choisir une année. -->
 
-<!-- Architecture
- Mermaid (diagramme)
- https://mermaid-js.github.io/mermaid-live-editor/edit -->
+# Architecture
+# Mermaid (diagramme)
+# https://mermaid-js.github.io/mermaid-live-editor/edit
 graph TD
     A[import] -->|plotly.graph_objects & express, pandas, pathlib| B(main.py)
     B --> C
