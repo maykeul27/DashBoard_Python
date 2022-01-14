@@ -1,5 +1,5 @@
 # Equipe:
-Michael TRAN
+Michael TRAN <br>
 Thomas MEONI
 
 # Nom du fichier CSV:
@@ -19,12 +19,13 @@ $ python -m pip install -r requirements.txt
  lancer sur votre terminal python le main.py
 
 # Instruction à exécuter dans le terminal pour lancer le projet.
-Utilisation: ouvrez l'url affiché
+Utilisation: ouvrez l'url affiché <br>
 Puis cliquez sur le bouton de defilement et choisir une année.
 
 # Architecture
-Mermaid (diagramme)
-https://mermaid-js.github.io/mermaid-live-editor/edit
+Mermaid (diagramme) <br>
+https://mermaid-js.github.io/mermaid-live-editor/edit <br>
+code à copier sur le site ci-dessus: <br>
 graph TD
     A[import] -->|plotly.graph_objects & express, pandas, pathlib| B(main.py)
     B --> C
