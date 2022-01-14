@@ -1,12 +1,12 @@
 # Equipe:
-# Michael TRAN
-# Thomas MEONI
+Michael TRAN
+Thomas MEONI
 
 # Nom du fichier CSV:
-# trafic-annuel-entrant-par-station-du-reseau-ferre 2018-2020
+trafic-annuel-entrant-par-station-du-reseau-ferre 2018-2020
 
 # Description :
-# Taux de fréquentation des station ratp île de France. Comprend les RER, metro, TGV et train # de ligne
+Taux de fréquentation des station ratp île de France. Comprend les RER, metro, TGV et train # de ligne
 
 # Installation :
 $ git clone https://github.com/maykeul27/DashBoard_Python
@@ -18,14 +18,13 @@ $ python -m pip install -r requirements.txt
 # Démarrage
  lancer sur votre terminal python le main.py
 
-# Donner l'instruction à exécuter dans le terminal pour lancer le projet.
-# Utilisation: ouvrez l'url affiché
-
-# cliquer sur le bouton de defilement et choisir une année. -->
+# Instruction à exécuter dans le terminal pour lancer le projet.
+Utilisation: ouvrez l'url affiché
+Puis cliquez sur le bouton de defilement et choisir une année.
 
 # Architecture
-# Mermaid (diagramme)
-# https://mermaid-js.github.io/mermaid-live-editor/edit
+Mermaid (diagramme)
+https://mermaid-js.github.io/mermaid-live-editor/edit
 graph TD
     A[import] -->|plotly.graph_objects & express, pandas, pathlib| B(main.py)
     B --> C
