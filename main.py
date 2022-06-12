@@ -47,83 +47,66 @@ app.layout = html.Div([
 
 # --- On va faire le lien entre nos données, interfaces et sélection afin de créer un affichage intéractif ---
 
+# Le callback faisant 'l'interface' entre les données qui rentrent et qui sortent
 @app.callback(
     [Output(component_id='année_sélectionnée', component_property='children'),
      Output(component_id='carte_traffic', component_property='figure'),
      Output(component_id='histogramme_traffic', component_property='figure')],
     [Input(component_id='slct_year', component_property='value')]
 )
+# La fonction qui va être appelée et qui prend en paramètre l'année choisie par l'utilisateur
 def maj_interface(année_choisie):
+    '''Prend en paramètre l'année choisie par l'utilisateur (int). 
+    Retourne: la phrase qui va confirmer l'année selectionnée (string), la carte du traffic (plotly.express.scatter_mapbox), et l'histogramme du traffic annuel sur 3 ans (plotly.express.bar).'''
 
     # Création de 'affichage de 'année séléctionnée
     container = "L'année sélectionnée est: {}".format(année_choisie)
-    
-    # df['text'] = ''
 
-    # if année_choisie == 2018:
-    #     df['text'] = 'Station' + df['Nom_Station'] + '<br>Ligne(s): ' + str(df['correspondance_1']) + ', ' + str(df['correspondance_2']) + ', ' + str(df['correspondance_3']) + ', ' + str(df['correspondance_4']) + ', ' + str(df['correspondance_5']) + '<br>Traffic année ' + '2018: ' + str(df['trafic_2018'])
-    # elif année_choisie == 2019:
-    #     df['text'] = 'Station' + df['Nom_Station'] + '<br>Ligne(s): ' + str(df['correspondance_1']) + ', ' + str(df['correspondance_2']) + ', ' + str(df['correspondance_3']) + ', ' + str(df['correspondance_4']) + ', ' + str(df['correspondance_5']) + '<br>Traffic année ' + '2019: ' + str(df['trafic_2019'])
-    # else:
-    #     df['text'] = 'Station' + df['Nom_Station'] + '<br>Ligne(s): ' + str(df['correspondance_1']) + ', ' + str(df['correspondance_2']) + ', ' + str(df['correspondance_3']) + ', ' + str(df['correspondance_4']) + ', ' + str(df['correspondance_5']) + '<br>Traffic année ' + '2020: ' + str(df['trafic_2020'])
-    
-    limits = [(0,15000),(15001,400000),(750001,15000000),(15000001,30000000),(30000001,5000000)]
-    colors = ["royalblue","crimson","lightseagreen","orange","lightgrey"]
-    scale = 8500
+    # Création de la carte
 
-    fig = go.Figure()
-    
-    for i in range(len(limits)):
-        lim = limits[i]
-        df_sub = df[lim[0]:lim[1]]
-        #print(df['Nom_Station'] + str(df['correspondance_1']) + str(df['correspondance_2']) + str(df['correspondance_3']) + str(df['correspondance_4']) + str(df['correspondance_5']) + str(df_sub['trafic_2018']))
-        #print(df['Nom_Station'][i] + str(df['correspondance_1'][i]) + str(df['correspondance_2'][i]) + str(df['correspondance_3'][i]) + str(df['correspondance_4'][i]) + str(df['correspondance_5'][i]) + str(df_sub['trafic_2018'][i]))
-        #fig = go.Figure(data = go.Scattergeo(
-        # if année_choisie == 2018:
-        #     df['text'] = 'Station' + df_sub['Nom_Station'] + '<br>Ligne(s): ' + str(df_sub['correspondance_1']) + ', ' + str(df_sub['correspondance_2']) + ', ' + str(df_sub['correspondance_3']) + ', ' + str(df_sub['correspondance_4']) + ', ' + str(df_sub['correspondance_5']) + '<br>Traffic année ' + '2018: ' + str(df_sub['trafic_2018'])
-        # elif année_choisie == 2019:
-        #     df['text'] = 'Station' + df_sub['Nom_Station'] + '<br>Ligne(s): ' + str(df_sub['correspondance_1']) + ', ' + str(df_sub['correspondance_2']) + ', ' + str(df_sub['correspondance_3']) + ', ' + str(df_sub['correspondance_4']) + ', ' + str(df_sub['correspondance_5']) + '<br>Traffic année ' + '2019: ' + str(df_sub['trafic_2019'])
-        # else:
-        #     df['text'] = 'Station' + df_sub['Nom_Station'] + '<br>Ligne(s): ' + str(df_sub['correspondance_1']) + ', ' + str(df_sub['correspondance_2']) + ', ' + str(df_sub['correspondance_3']) + ', ' + str(df_sub['correspondance_4']) + ', ' + str(df_sub['correspondance_5']) + '<br>Traffic année ' + '2020: ' + str(df_sub['trafic_2020'])
+    # Nos données qui vont changer selon l'année
+    map_color = []
+    map_hover_data = []
 
-        fig.add_trace(go.Scattergeo(
-            locationmode = 'ISO-3',
-            lon = df_sub['Longitude'],
-            lat = df_sub['Latitude'],
-            #text ='Station' + df_sub['Nom_Station'] + '<br>Ligne(s): ' + str(df_sub['correspondance_1']) + ', ' + str(df_sub['correspondance_2']) + ', ' + str(df_sub['correspondance_3']) + ', ' + str(df_sub['correspondance_4']) + ', ' + str(df_sub['correspondance_5']) + '<br>Traffic année ' + str(année_choisie) + ': ' + str(df_sub['trafic_'+ str(année_choisie)]), # df_sub['text'],
-            hoverlabel = 'Nom_Station',
-            marker = dict(
-                size = df_sub['trafic_' + str(année_choisie)]/scale,
-                color = colors[i],
-                line_color='rgb(40,40,40)',
-                line_width=0.5,
-                sizemode = 'area'
-            ),
-            name = '{0} - {1}'.format(lim[0],lim[1]))).update_geos(projection_type="satellite")
+    if année_choisie == 2018:
+        map_color = df['trafic_2018']
+        map_hover_data = ['correspondance_1' ,'correspondance_2', 'correspondance_3', 'correspondance_4', 'correspondance_5', 'trafic_2018']
+    elif année_choisie == 2019:
+        map_color = df['trafic_2019']
+        map_hover_data = ['correspondance_1' ,'correspondance_2', 'correspondance_3', 'correspondance_4', 'correspondance_5', 'trafic_2019'] 
+    else:
+        map_color = df['trafic_2020']
+        map_hover_data = ['correspondance_1' ,'correspondance_2', 'correspondance_3', 'correspondance_4', 'correspondance_5', 'trafic_2020']
 
-    fig.update_layout(
-        title_text = 'Traffic Réseau Transport ' + str(année_choisie),
-        showlegend = True,
-        geo = dict(
-             showland = True,
-            # Add coordinates limits on a map
-            lataxis = dict(range=[48.5,49.2]),
-            lonaxis = dict(range=[2,2.9]),
-            landcolor = "rgb(250, 250, 250)",
-            subunitcolor = "rgb(217, 217, 217)",
-            countrycolor = "rgb(217, 217, 217)",
-            countrywidth = 0.5,
-            subunitwidth = 0.5
-        )
+    # La carte qu'on créer en fonction de nos données et de la demande utilisateur
+    fig = px.scatter_mapbox(df,
+                        lat = df['Latitude'],
+                        lon = df['Longitude'],
+                        color = map_color,
+                        hover_name = df['Nom_Station'],
+                        hover_data = map_hover_data,
+                        size = map_color,
+                        opacity = .8,
+                        zoom = 10,
+                        size_max = 20,
+                        center= dict(lat = 48.85,
+                                    lon = 2.34
+                        ),
+                        mapbox_style = 'carto-positron',
+                        title = "Carte BubbleMap du Traffic RATP"
     )
 
-    figH = go.Figure()
+    # Création de l'histogramme
+    figH = px.bar(df,x='annee',y='traffic total',
+    color='traffic total',
+    title="Évolution du Traffic Annuel")
+    figH.update_xaxes(type='category')
 
-    figH.show()
-
+    # Les objets crées qu'on renvoie au callback
     return container, fig, figH
 
 
 # ------------------------------------------------------------------------------
 if __name__ == '__main__':
+    print('\nCtrl + Click sur le lien ci-dessous pour ouvrir le DashBoard dans votre navigateur:\n')
     app.run_server(debug=True)
